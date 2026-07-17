@@ -15,7 +15,8 @@ const io = new Server(server, {
   }
 });
 
-// Registrar la instancia de io en la app de express para que los controladores puedan acceder
+// Registrar la instancia de io en la app desds express para que los controladores puedan acceder
+
 app.set('io', io);
 
 
