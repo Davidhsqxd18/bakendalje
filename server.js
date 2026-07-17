@@ -18,6 +18,7 @@ const io = new Server(server, {
 // Registrar la instancia de io en la app de express para que los controladores puedan acceder
 app.set('io', io);
 
+
 io.on('connection', (socket) => {
   console.log(`Cliente conectado a WebSockets: ${socket.id}`);
 
