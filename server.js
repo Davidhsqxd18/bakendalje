@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 
 // Inicializar socket.io con CORS habilitado
+
 const io = new Server(server, {
   cors: {
     origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
