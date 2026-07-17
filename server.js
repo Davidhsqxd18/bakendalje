@@ -5,15 +5,23 @@ const app = require('./app');
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-// Inicializar socket.io con CORS habilitado
+// Determinar orígenes permitidos a partir de variables de entorno
+const allowedOrigins = process.env.CORS_ALLOW_ALL === 'true'
+  ? true
+  : (process.env.CORS_ORIGINS
+      ? process.env.CORS_ORIGINS.split(',').map((o) => o.trim()).filter(Boolean)
+      : ['http://localhost:4200', 'http://127.0.0.1:4200']);
 
+// Inicializar socket.io con CORS dinámico (usa allowedOrigins)
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }
 });
+
+console.log('Socket.IO allowed origins:', allowedOrigins === true ? 'ALL' : allowedOrigins);
 
 // Registrar la instancia de io en la app desds express para que los controladores puedan acceder
 
